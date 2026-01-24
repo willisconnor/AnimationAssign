@@ -4,8 +4,8 @@ class Ichigo {
         this.animator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 2, 196, 64, 48, 3, 0.2);
         
         this.speed = 200;
-        this.x = 200;
-        this.y = 200;
+        this.x = 400;
+        this.y = 400;
         this.direction = 1; // 1 for right, -1 for left
     };
 

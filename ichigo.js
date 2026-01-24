@@ -6,17 +6,42 @@ class Ichigo {
         this.speed = 200;
         this.x = 0;
         this.y = 0;
+        this.direction = 1; // 1 for right, -1 for left
     };
 
     update(){
-        this.x += this.speed * this.game.clockTick;
-        if(this.x > 1024) this.x = 0;
+        const moveLeft = this.game.keys['a'] || this.game.keys['ArrowLeft'];
+        const moveRight = this.game.keys['d'] || this.game.keys['ArrowRight'];
 
+        if (moveLeft && !moveRight) {
+            this.x -= this.speed * this.game.clockTick;
+            this.direction = -1;
+        } else if (moveRight && !moveLeft) {
+            this.x += this.speed * this.game.clockTick;
+            this.direction = 1;
+        }
 
+        // Keep Ichigo on screen
+        if (this.x < 0) this.x = 0;
+        if (this.x > 1024) this.x = 1024;
     };
 
     draw(ctx){
-        this.animator.drawFrame(this.game.clockTick, ctx, this.x, this.y);
+        // Save the current context state
+        ctx.save();
+
+        // If facing left, flip the canvas
+        if (this.direction === -1) {
+            ctx.translate(this.x + 64, this.y);
+            ctx.scale(-1, 1);
+            ctx.translate(-64, 0);
+            this.animator.drawFrame(this.game.clockTick, ctx, 0, 0);
+        } else {
+            this.animator.drawFrame(this.game.clockTick, ctx, this.x, this.y);
+        }
+
+        // Restore the context state
+        ctx.restore();
     };
 
 }

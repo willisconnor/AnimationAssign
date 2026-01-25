@@ -1,24 +1,30 @@
 class Ichigo {
     constructor(game) {
         this.game = game;
-        this.animator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 2, 196, 64, 48, 3, 0.2);
+        this.walkAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 2, 196, 64, 48, 3, 0.2);
+        this.idleAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 2, 106, 64, 48, 1, 0.2);
         
         this.speed = 200;
         this.x = 400;
         this.y = 500;
         this.direction = 1; // 1 for right, -1 for left
+        this.isMoving = false;
     };
 
     update(){
         const moveLeft = this.game.keys['a'] || this.game.keys['ArrowLeft'];
         const moveRight = this.game.keys['d'] || this.game.keys['ArrowRight'];
 
+        this.isMoving = false;
+
         if (moveLeft && !moveRight) {
             this.x -= this.speed * this.game.clockTick;
             this.direction = -1;
+            this.isMoving = true;
         } else if (moveRight && !moveLeft) {
             this.x += this.speed * this.game.clockTick;
             this.direction = 1;
+            this.isMoving = true;
         }
 
         // Keep Ichigo on screen
@@ -27,6 +33,9 @@ class Ichigo {
     };
 
     draw(ctx){
+        // Select the appropriate animator based on movement state
+        const currentAnimator = this.isMoving ? this.walkAnimator : this.idleAnimator;
+
         // Save the current context state
         ctx.save();
 
@@ -35,9 +44,9 @@ class Ichigo {
             ctx.translate(this.x + 64, this.y);
             ctx.scale(-1, 1);
             ctx.translate(-64, 0);
-            this.animator.drawFrame(this.game.clockTick, ctx, 0, 0);
+            currentAnimator.drawFrame(this.game.clockTick, ctx, 0, 0);
         } else {
-            this.animator.drawFrame(this.game.clockTick, ctx, this.x, this.y);
+            currentAnimator.drawFrame(this.game.clockTick, ctx, this.x, this.y);
         }
 
         // Restore the context state

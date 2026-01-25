@@ -9,6 +9,7 @@ class Background {
     };
 
     draw(ctx) {
+        console.log("Background drawing");
         ctx.drawImage(this.backgroundImage, 0, 0, ctx.canvas.width, ctx.canvas.height);
     };
 }

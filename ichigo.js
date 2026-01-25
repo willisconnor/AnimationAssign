@@ -3,7 +3,7 @@ class Ichigo {
         this.game = game;
         this.walkAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 2, 192, 64, 52, 3, 0.2);
         this.idleAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 0, 107, 60, 64, 2, 0.2);
-        this.slashAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 0, 466, 88, 89, 5, 0.2, false);
+        this.slashAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 0, 466, 88, 89, 5, 0.15, false);
         
         this.speed = 200;
         this.x = 400;
@@ -50,7 +50,6 @@ class Ichigo {
     };
 
     draw(ctx){
-        console.log("Ichigo drawing at x:", this.x, "y:", this.y);
         // Select the appropriate animator based on state
         let currentAnimator;
         if (this.isSlashing) {
@@ -64,9 +63,9 @@ class Ichigo {
 
         // If facing left, flip the canvas
         if (this.direction === -1) {
-            ctx.translate(this.x + 64, this.y);
+            ctx.translate(this.x + currentAnimator.width, this.y);
             ctx.scale(-1, 1);
-            ctx.translate(-64, 0);
+            ctx.translate(-currentAnimator.width, 0);
             currentAnimator.drawFrame(this.game.clockTick, ctx, 0, 0);
         } else {
             currentAnimator.drawFrame(this.game.clockTick, ctx, this.x, this.y);

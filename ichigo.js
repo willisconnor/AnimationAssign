@@ -1,7 +1,7 @@
 class Ichigo {
     constructor(game) {
         this.game = game;
-        this.walkAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 2, 196, 64, 64, 3, 0.2);
+        this.walkAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 2, 192, 64, 48, 3, 0.2);
         this.idleAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 0, 107, 60, 64, 2, 0.2);
         
         this.speed = 200;

@@ -9,9 +9,16 @@ ASSET_MANAGER.downloadAll(() => {
 	const ctx = canvas.getContext("2d");
 	ctx.imageSmoothingEnabled = false;
 	
-	gameEngine.addEntity(new Ichigo(gameEngine));
+	const ichigo = new Ichigo(gameEngine);
+	gameEngine.addEntity(ichigo);
 	
 	gameEngine.init(ctx);
 
 	gameEngine.start();
+
+	// Add slash button handler
+	const slashButton = document.getElementById("slashButton");
+	slashButton.addEventListener("click", () => {
+		ichigo.slash();
+	});
 });

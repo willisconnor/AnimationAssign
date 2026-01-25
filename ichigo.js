@@ -61,14 +61,18 @@ class Ichigo {
         // Save the current context state
         ctx.save();
 
+        // Calculate the center position for the character
+        const charCenterX = this.x + (this.walkAnimator.width / 2);
+        const drawX = this.isSlashing ? charCenterX - (currentAnimator.width / 2) : this.x;
+
         // If facing left, flip the canvas
         if (this.direction === -1) {
-            ctx.translate(this.x + currentAnimator.width, this.y);
+            ctx.translate(drawX + currentAnimator.width, this.y);
             ctx.scale(-1, 1);
             ctx.translate(-currentAnimator.width, 0);
             currentAnimator.drawFrame(this.game.clockTick, ctx, 0, 0);
         } else {
-            currentAnimator.drawFrame(this.game.clockTick, ctx, this.x, this.y);
+            currentAnimator.drawFrame(this.game.clockTick, ctx, drawX, this.y);
         }
 
         // Restore the context state

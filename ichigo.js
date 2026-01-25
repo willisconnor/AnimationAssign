@@ -50,6 +50,7 @@ class Ichigo {
     };
 
     draw(ctx){
+        console.log("Ichigo drawing at x:", this.x, "y:", this.y);
         // Select the appropriate animator based on state
         let currentAnimator;
         if (this.isSlashing) {

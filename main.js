@@ -10,9 +10,9 @@ ASSET_MANAGER.downloadAll(() => {
 	const ctx = canvas.getContext("2d");
 	ctx.imageSmoothingEnabled = false;
 	
+	gameEngine.addEntity(new Background(gameEngine));
 	const ichigo = new Ichigo(gameEngine);
 	gameEngine.addEntity(ichigo);
-	gameEngine.addEntity(new Background(gameEngine));
 	
 	gameEngine.init(ctx);
 

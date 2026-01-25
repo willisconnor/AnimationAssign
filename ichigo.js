@@ -3,7 +3,7 @@ class Ichigo {
         this.game = game;
         this.walkAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 2, 192, 64, 52, 3, 0.2);
         this.idleAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 0, 107, 60, 64, 2, 0.2);
-        this.slashAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 0, 300, 48, 90, 5, 0.2);
+        this.slashAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 0, 466, 48, 90, 5, 0.2, false);
         
         this.speed = 200;
         this.x = 400;

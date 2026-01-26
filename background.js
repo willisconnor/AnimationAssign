@@ -1,7 +1,7 @@
 class Background {
     constructor(game) {
         this.game = game;
-        this.backgroundImage = ASSET_MANAGER.getAsset("/AnimationAssign/background.jpg");
+        this.backgroundImage = ASSET_MANAGER.getAsset("./background.jpg");
     };
 
     update() {

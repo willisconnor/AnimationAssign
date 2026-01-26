@@ -1,9 +1,9 @@
 class Ichigo {
     constructor(game) {
         this.game = game;
-        this.walkAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 2, 192, 64, 52, 3, 0.2);
-        this.idleAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 0, 107, 60, 64, 2, 0.2);
-        this.slashAnimator = new Animator(ASSET_MANAGER.getAsset("/AnimationAssign/fixed_spritesheet.png"), 0, 466, 88, 89, 5, 1, false);
+        this.walkAnimator = new Animator(ASSET_MANAGER.getAsset("./fixed_spritesheet.png"), 2, 192, 64, 52, 3, 0.2);
+        this.idleAnimator = new Animator(ASSET_MANAGER.getAsset("./fixed_spritesheet.png"), 0, 107, 60, 64, 2, 0.2);
+        this.slashAnimator = new Animator(ASSET_MANAGER.getAsset("./fixed_spritesheet.png"), 0, 466, 88, 89, 5, 0.15, false);
         
         this.speed = 200;
         this.x = 400;
@@ -58,17 +58,22 @@ class Ichigo {
             currentAnimator = this.isMoving ? this.walkAnimator : this.idleAnimator;
         }
 
+        // Keep feet aligned at y=600
+        // Since sprites are drawn at 2x scale, feet position = drawY + (height * 2)
+        // So drawY = 600 - (height * 2)
+        const drawY = 600 - (currentAnimator.height * 2);
+
         // Save the current context state
         ctx.save();
 
         // If facing left, flip the canvas
         if (this.direction === -1) {
-            ctx.translate(this.x + currentAnimator.width, this.y);
+            ctx.translate(this.x + currentAnimator.width, drawY);
             ctx.scale(-1, 1);
             ctx.translate(-currentAnimator.width, 0);
             currentAnimator.drawFrame(this.game.clockTick, ctx, 0, 0);
         } else {
-            currentAnimator.drawFrame(this.game.clockTick, ctx, this.x, this.y);
+            currentAnimator.drawFrame(this.game.clockTick, ctx, this.x, drawY);
         }
 
         // Restore the context state
